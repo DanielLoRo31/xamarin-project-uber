@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Proyect_U.MainPage">
+    
+    <Grid Padding="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        
+        <ScrollView Grid.Column="0" >
+            <StackLayout BackgroundColor="#34495E "  >
+
+                <!-- Place new controls here -->
+              
+                
+                <Label Text="LOGIN" 
+               TextColor="White"
+                       FontSize="Large"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"/>
+                <Image Source="password.png" Aspect="AspectFit" VerticalOptions="CenterAndExpand">
+
+                </Image>
+
+                <Entry 
+                    Placeholder="Nombre" 
+                    Text="{Binding Name}" />
+              
+                <Entry 
+                    Placeholder="Password" 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    IsPassword="True"
+                    Text="{Binding Password}" />
+
+                <Label Text="You do not have an account?" 
+               TextColor="White"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand"/>
+                <Button Text="Sign up"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        TextColor="WhiteSmoke"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
+                        >
+                    
+                </Button>
+            
+             
+                
+            </StackLayout>
+        </ScrollView>
+        <StackLayout Grid.Column="1">
+            <Image
+                    Source="carretera_1.png"  Aspect="Fill"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
