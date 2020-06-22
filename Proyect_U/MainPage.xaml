@@ -37,17 +37,28 @@
                     VerticalOptions="Center"
                     IsPassword="True"
                     Text="{Binding Password}" />
+                <Button Text="Login"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        TextColor="WhiteSmoke"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
+                        Command="{Binding LogInCommand}"
+                        >
 
+                </Button>
                 <Label Text="You do not have an account?" 
                TextColor="White"
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand"/>
+                
                 <Button Text="Sign up"
                         FontSize="Medium"
                         FontAttributes="Bold"
                         TextColor="WhiteSmoke"
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="Center"
+                        
                         >
                     
                 </Button>
