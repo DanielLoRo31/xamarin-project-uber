@@ -1,5 +1,4 @@
-﻿using AppTrips.Models;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace WebApiAzureSQL.Models
+namespace UberChafaAPI.Models
 {
     public class TripModel
     {
@@ -19,7 +18,9 @@ namespace WebApiAzureSQL.Models
         public DateTime InitialDate { get; set; }
         public DateTime FinalDate { get; set; }
         public string OriginAddress { get; set; }
+        public string OriginCoordinates { get; set; }
         public string DestinationAddress { get; set; }
+        public string DestinationCoordinates { get; set; }
         public int Status { get; set; }
         public string Route { get; set; }
 
@@ -54,7 +55,9 @@ namespace WebApiAzureSQL.Models
                                     InitialDate = (DateTime)reader["InitialDate"],
                                     FinalDate = (DateTime)reader["FinalDate"],
                                     OriginAddress = reader["OriginAddress"].ToString(),
+                                    OriginCoordinates = reader["OriginCoordinates"].ToString(),
                                     DestinationAddress = reader["DestinationAddress"].ToString(),
+                                    DestinationCoordinates = reader["DestinationCoordinates"].ToString(),
                                     Status = (int)reader["Status"],
                                     Route = reader["Route"].ToString()
                                 });
@@ -101,7 +104,9 @@ namespace WebApiAzureSQL.Models
                                     InitialDate = (DateTime)reader["InitialDate"],
                                     FinalDate = (DateTime)reader["FinalDate"],
                                     OriginAddress = reader["OriginAddress"].ToString(),
+                                    OriginCoordinates = reader["OriginCoordinates"].ToString(),
                                     DestinationAddress = reader["DestinationAddress"].ToString(),
+                                    DestinationCoordinates = reader["DestinationCoordinates"].ToString(),
                                     Status = (int)reader["Status"],
                                     Route = reader["Route"].ToString()
                                 };
@@ -133,10 +138,12 @@ namespace WebApiAzureSQL.Models
                 using (MySqlConnection sqlConnection = new MySqlConnection(builder.ConnectionString))
                 {
                     sqlConnection.Open();
-                    string queryString = "INSERT INTO `uberchafadb`.`trip` (`IdDriver`, `OriginAddress`, `DestinationAddress`, `Status`, `Route`) VALUES ('"
+                    string queryString = "INSERT INTO `uberchafadb`.`trip` (`IdDriver`, `OriginAddress`, `OriginCoordinates`, `DestinationAddress`, `DestinationCoordinates`, `Status`, `Route`) VALUES ('"
                         + IdDriver + "', '"
                         + OriginAddress + "', '"
+                        + OriginCoordinates + "', '"
                         + DestinationAddress + "', '"
+                        + DestinationCoordinates + "', '"
                         + Status + "', '"
                         + Route + "');";
                     using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))

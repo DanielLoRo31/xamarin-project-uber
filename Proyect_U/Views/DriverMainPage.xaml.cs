@@ -1,4 +1,5 @@
-﻿using Proyect_U.Models;
+﻿using AppTrips.Views;
+using Proyect_U.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,7 +51,7 @@ namespace Proyect_U.Views
                         MenuPages.Add(id, new NavigationPage(new SignInPage(user)));
                         break;
                     case (int)MenuItemType.Mapa:   /*Mostrar Tres puntos de Apptrips, Inicio,final,Conductor, boton de terminar viaje*/
-                        MenuPages.Add(id, new NavigationPage(new DetailTripPage()));
+                        MenuPages.Add(id, new NavigationPage(new TripMapPage(user)));
                         break;
                 }
                 

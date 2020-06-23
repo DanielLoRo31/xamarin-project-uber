@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using AppTrips.Models;
 using MySql.Data.MySqlClient;
 
-namespace WebApiAzureSQL.Models
+namespace UberChafaAPI.Models
 {
     public class DriverModel
     {

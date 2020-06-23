@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AppTrips.Models
+namespace UberChafaAPI.Models
 {
     public class ApiResponse
     {

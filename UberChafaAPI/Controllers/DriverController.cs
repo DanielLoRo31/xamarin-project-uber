@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using AppTrips.Models;
+using UberChafaAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApiAzureSQL.Models;
 
-namespace WebApiAzureSQL.Controllers
+namespace UberChafaAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]

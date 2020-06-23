@@ -6,5 +6,6 @@ namespace Proyect_U.Models
 {
     public class UserModel
     {
+
     }
 }
