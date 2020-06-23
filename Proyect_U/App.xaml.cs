@@ -10,10 +10,10 @@ namespace Proyect_U
         public App()
         {
             InitializeComponent();
-            /*var nav = new NavigationPage(new DetailCarPage());
-            MainPage = nav;*/
+            var nav = new NavigationPage(new MainPage());
+            MainPage = nav;
 
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
         }
 
         protected override void OnStart()

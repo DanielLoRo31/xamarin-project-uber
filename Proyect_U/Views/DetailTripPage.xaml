@@ -6,10 +6,54 @@
              mc:Ignorable="d"
              x:Class="Proyect_U.Views.DetailTripPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid BackgroundColor="#34495E ">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <Image 
+                Grid.Column="1"
+                Grid.Row="1"
+                Source="globe.png" 
+                Aspect="AspectFit" 
+                VerticalOptions="CenterAndExpand"/>
+
+            <Entry 
+                Grid.Column="1"
+                Grid.Row="3"
+                Placeholder="Inicio" 
+                HorizontalTextAlignment="Center"
+                Text="{Binding Email}" />
+            <Entry 
+                Grid.Column="1"
+                Grid.Row="5"
+                Placeholder="Final" 
+                HorizontalTextAlignment="Center"
+                Text="{Binding Email}" />
+
+            <Button 
+                Grid.Column="1"
+                Grid.Row="7"
+                Text="Iniciar Viaje"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                TextColor="WhiteSmoke"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                WidthRequest="150"
+                Command="{Binding LogInCommand}"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -4,27 +4,37 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Proyect_U.Views.LoginPage">
-    <Grid Padding="5">
-       
-        <ScrollView  >
+             xmlns:converter="clr-namespace:Proyect_U.Converters"
+             x:Class="Proyect_U.Views.SignInPage">
+    
+    <ContentPage.Resources>
+        <!--Pagina donde se mostraran lo que son los conductores , esta veran los administadores-->
+        <ResourceDictionary>
+            <converter:ImageConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid>       
+        <ScrollView>
             <StackLayout BackgroundColor="#34495E "  >
 
                 <!-- Place new controls here -->
 
 
-                <Label Text="Sign up free" 
+                <Label Text="{Binding Title}" 
                TextColor="White"
                        FontSize="Large"
            HorizontalOptions="Center"
            VerticalOptions="Center"/>
-                <Image Source="vehicle.png" Aspect="AspectFit" VerticalOptions="CenterAndExpand">
-
-                </Image>
+                <ImageButton HeightRequest="150" Source="{Binding Image, Converter={StaticResource ImageConverter}}" Command="{Binding SelectPictureCommand}" Aspect="AspectFit" VerticalOptions="CenterAndExpand"/>
 
                 <Entry 
                     Placeholder="Nombre" 
                     Text="{Binding Name}" />
+                
+                <Entry 
+                    Placeholder="Correo" 
+                    Text="{Binding Email}" />
 
                 <Entry 
                     Placeholder="Password" 
@@ -46,19 +56,13 @@
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="Center"/>
                 <Button
-                    Text="Select photo"
-                    Command="{Binding SelectPictureCommand}" 
+                    Text="{Binding Title}"
+                    Command="{Binding RegisterCommand}" 
                     FontSize="Medium"
                         FontAttributes="Bold"
                         TextColor="WhiteSmoke"
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="Center"/>
-                
-                
-                
-
-
-
             </StackLayout>
         </ScrollView>
         

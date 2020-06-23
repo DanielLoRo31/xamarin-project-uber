@@ -15,6 +15,7 @@ namespace Proyect_U.Views
     public partial class DriverMainPage : MasterDetailPage
     {
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        UserModel user;
         public DriverMainPage()
         {
             InitializeComponent();
@@ -22,6 +23,17 @@ namespace Proyect_U.Views
             MasterBehavior = MasterBehavior.Popover;
 
             MenuPages.Add((int)MenuItemType.Inicio, (NavigationPage)Detail);
+        }
+
+        public DriverMainPage(UserModel u)
+        {
+            InitializeComponent();
+
+            MasterBehavior = MasterBehavior.Popover;
+
+            MenuPages.Add((int)MenuItemType.Inicio, (NavigationPage)Detail);
+
+            user = u;
         }
 
 
@@ -35,7 +47,7 @@ namespace Proyect_U.Views
                         MenuPages.Add(id, new NavigationPage(new DetailTripPage()));
                         break;
                     case (int)MenuItemType.Actualizar:  /*Actualizar Informacion del conductor*/
-                        MenuPages.Add(id, new NavigationPage(new DetailTripPage()));
+                        MenuPages.Add(id, new NavigationPage(new SignInPage(user)));
                         break;
                     case (int)MenuItemType.Mapa:   /*Mostrar Tres puntos de Apptrips, Inicio,final,Conductor, boton de terminar viaje*/
                         MenuPages.Add(id, new NavigationPage(new DetailTripPage()));

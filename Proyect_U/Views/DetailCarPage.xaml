@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:converter="clr-namespace:Proyect_U.Converters"
              x:Class="Proyect_U.Views.DetailCarPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Nuevo" Command="{Binding NewCommand}" />
@@ -12,7 +13,7 @@
     <ContentPage.Resources>
         <!--Pagina donde se mostraran lo que son los conductores , esta veran los administadores-->
         <ResourceDictionary>
-            <!--<converter:ImageConverter x:Key="ImageConverter" />-->
+            <converter:ImageConverter x:Key="ImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 

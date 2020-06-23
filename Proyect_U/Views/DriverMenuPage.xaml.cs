@@ -14,7 +14,7 @@ namespace Proyect_U.Views
     [DesignTimeVisible(false)]
     public partial class DriverMenuPage : ContentPage
     {
-        DriverMainPage RootPage { get => Application.Current.MainPage.Navigation.NavigationStack[0] as DriverMainPage; }
+        DriverMainPage RootPage { get => Application.Current.MainPage.Navigation.ModalStack[0] as DriverMainPage; }
         List<HomeMenuItem> menuItems;
         public DriverMenuPage()
         {
@@ -37,7 +37,7 @@ namespace Proyect_U.Views
                     return;
 
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
-                if (id != 2)
+                if (id != 3)
                 {
                     await RootPage.NavigateFromMenu(id);
                 } else

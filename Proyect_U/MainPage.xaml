@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="Proyect_U.MainPage">
     
-    <Grid Padding="5">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="2*" />
@@ -14,22 +14,21 @@
         
         <ScrollView Grid.Column="0" >
             <StackLayout BackgroundColor="#34495E "  >
-
-                <!-- Place new controls here -->
-              
                 
                 <Label Text="LOGIN" 
-               TextColor="White"
-                       FontSize="Large"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"/>
-                <Image Source="password.png" Aspect="AspectFit" VerticalOptions="CenterAndExpand">
-
-                </Image>
+                    TextColor="White"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+                
+                <Image 
+                    Source="password.png" 
+                    Aspect="AspectFit" 
+                    VerticalOptions="CenterAndExpand"/>
 
                 <Entry 
                     Placeholder="Nombre" 
-                    Text="{Binding Name}" />
+                    Text="{Binding Email}" />
               
                 <Entry 
                     Placeholder="Password" 
@@ -37,33 +36,23 @@
                     VerticalOptions="Center"
                     IsPassword="True"
                     Text="{Binding Password}" />
-                <Button Text="Login"
-                        FontSize="Medium"
-                        FontAttributes="Bold"
-                        TextColor="WhiteSmoke"
-                        VerticalOptions="CenterAndExpand"
-                        HorizontalOptions="Center"
-                        Command="{Binding LogInCommand}"
-                        >
-
-                </Button>
-                <Label Text="You do not have an account?" 
-               TextColor="White"
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand"/>
                 
-                <Button Text="Sign up"
-                        FontSize="Medium"
-                        FontAttributes="Bold"
-                        TextColor="WhiteSmoke"
-                        VerticalOptions="CenterAndExpand"
-                        HorizontalOptions="Center"
-                        
-                        >
-                    
-                </Button>
-            
-             
+                <Button Text="Login"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    TextColor="WhiteSmoke"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
+                    Command="{Binding LogInCommand}"/>
+                
+                <Button Text="You don't have an account?" 
+                    TextColor="White"
+                    BorderWidth="0"
+                    FontSize="Body"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    VerticalOptions="StartAndExpand"
+                    Command="{Binding SignInCommand}"/>
                 
             </StackLayout>
         </ScrollView>
