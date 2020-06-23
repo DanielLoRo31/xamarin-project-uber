@@ -20,7 +20,7 @@ namespace Proyect_U.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            Xamarin.FormsMaps.Init("CVQNY2Q9KgtdHnWgmWi9~6Bj4sINLmjvOR_UBWvTeOA~Al1zBxognQL37BHZj9ErQj34cu8Hv2ekiPwyCaA1IyRAwdoYvv3HgCDOzoDGnkQA");
             LoadApplication(new Proyect_U.App());
         }
     }
