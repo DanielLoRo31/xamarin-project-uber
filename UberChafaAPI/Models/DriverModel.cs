@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using AppTrips.Models;
 using MySql.Data.MySqlClient;
 
 namespace UberChafaAPI.Models
@@ -71,7 +70,7 @@ namespace UberChafaAPI.Models
         public DriverModel Get(int id)
         {
             DriverModel driver = new DriverModel();
-            try
+            try//
             {
                 var builder = new MySqlConnectionStringBuilder
                 {
@@ -85,6 +84,55 @@ namespace UberChafaAPI.Models
                 {
                     sqlConnection.Open();
                     string queryString = "SELECT * FROM Driver WHERE Id = " + this.Id +";";
+
+                    using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                driver = new DriverModel
+                                {
+                                    Id = (int)reader["Id"],
+                                    Name = reader["Name"].ToString(),
+                                    LicensePlate = reader["LicensePlate"].ToString(),
+                                    Picture = reader["Picture"].ToString(),
+                                    CurrentLocation = new PositionModel
+                                    {
+                                        Latitude = reader["Latitude"].ToString(),
+                                        Longitude = reader["Longitude"].ToString()
+                                    },
+                                    Password = reader["Password"].ToString()
+                                };
+                            }
+                        }
+                    }
+                }
+                return driver;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public DriverModel GetLogin()
+        {
+            DriverModel driver = new DriverModel();
+            try
+            {
+                var builder = new MySqlConnectionStringBuilder
+                {
+                    Server = "uberchafa.mysql.database.azure.com",
+                    Database = "uberchafadb",
+                    UserID = "uberadmin@uberchafa",
+                    Password = "Nintendo123",
+                    SslMode = MySqlSslMode.Required,
+                };
+                using (MySqlConnection sqlConnection = new MySqlConnection(builder.ConnectionString))
+                {
+                    sqlConnection.Open();
+                    string queryString = "SELECT * FROM Driver WHERE Name = '" + Name + "' and Password = '" + Password + "';";
 
                     using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
                     {
@@ -139,7 +187,7 @@ namespace UberChafaAPI.Models
                         + Picture + "', '" 
                         + CurrentLocation.Latitude + "', '"
                         + CurrentLocation.Longitude + "', '"
-                        + Password +"');";
+                        + Password +"'); SELECT LAST_INSERT_ID();";
                     using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
                     {
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -177,7 +225,7 @@ namespace UberChafaAPI.Models
             }
         }
 
-        public ApiResponse Update(int type)
+        public ApiResponse Update()
         {
             try
             {
@@ -195,16 +243,7 @@ namespace UberChafaAPI.Models
                     
                     string queryString = "";
 
-                    if (type == 1) {
-                        queryString = "UPDATE `uberChafaDB`.`Driver` SET`Name` = '"
-                            + Name + "', `LicensePlate` = '"
-                            + LicensePlate +"', `Picture` = '"
-                            + Picture + "', `Password` = '"
-                            + Password + "' WHERE `Id` = "
-                            + Id + ";";
-                    } 
-                    else {
-                        queryString = "UPDATE `uberChafaDB`.`Driver` SET`Name` = '"
+                    queryString = "UPDATE `uberChafaDB`.`Driver` SET`Name` = '"
                             + Name + "', `LicensePlate` = '"
                             + LicensePlate + "', `Picture` = '"
                             + Picture + "', `Latitude` = '"
@@ -212,7 +251,6 @@ namespace UberChafaAPI.Models
                             + CurrentLocation.Longitude + "', `Password` = '"
                             + Password + "' WHERE `Id` = "
                             + Id + ";";
-                    }
 
                     using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
                     {

@@ -18,7 +18,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:DetailTripPage />
+                
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

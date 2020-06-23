@@ -14,7 +14,7 @@ namespace UberChafaAPI.Models
     {
         //string ConnectionString = "Data Source=" + "db-pinogordo.cyhnjqcokye6.us-east-2.rds.amazonaws.com" + ";Initial Catalog=" + "uberChafaDB" + ";User ID=" + "root" + ";Password=" + "nintendo123" + ";";
         public int Id { get; set; }
-        public string IdDriver { get; set; }
+        public int IdDriver { get; set; }
         public DateTime InitialDate { get; set; }
         public DateTime FinalDate { get; set; }
         public string OriginAddress { get; set; }
@@ -51,7 +51,7 @@ namespace UberChafaAPI.Models
                                 trips.Add(new TripModel
                                 {
                                     Id = (int)reader["Id"],
-                                    IdDriver = reader["Name"].ToString(),
+                                    IdDriver = (int)reader["IdDriver"],
                                     InitialDate = (DateTime)reader["InitialDate"],
                                     FinalDate = (DateTime)reader["FinalDate"],
                                     OriginAddress = reader["OriginAddress"].ToString(),
@@ -89,7 +89,7 @@ namespace UberChafaAPI.Models
                 using (MySqlConnection sqlConnection = new MySqlConnection(builder.ConnectionString))
                 {
                     sqlConnection.Open();
-                    string queryString = "SELECT * FROM Trip WHERE Id = " + this.Id + ";";
+                    string queryString = "SELECT * FROM Trip WHERE Id = " + id + ";";
 
                     using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
                     {
@@ -100,7 +100,7 @@ namespace UberChafaAPI.Models
                                 trip = new TripModel
                                 {
                                     Id = (int)reader["Id"],
-                                    IdDriver = reader["Name"].ToString(),
+                                    IdDriver = (int)reader["IdDriver"],
                                     InitialDate = (DateTime)reader["InitialDate"],
                                     FinalDate = (DateTime)reader["FinalDate"],
                                     OriginAddress = reader["OriginAddress"].ToString(),
@@ -121,6 +121,56 @@ namespace UberChafaAPI.Models
                 throw;
             }
         }
+
+        public TripModel GetActualTrip(int id)
+        {
+            TripModel trip = new TripModel();
+            try
+            {
+                var builder = new MySqlConnectionStringBuilder
+                {
+                    Server = "uberchafa.mysql.database.azure.com",
+                    Database = "uberchafadb",
+                    UserID = "uberadmin@uberchafa",
+                    Password = "Nintendo123",
+                    SslMode = MySqlSslMode.Required,
+                };
+                using (MySqlConnection sqlConnection = new MySqlConnection(builder.ConnectionString))
+                {
+                    sqlConnection.Open();
+                    string queryString = "SELECT * FROM Trip WHERE IdDriver = " + id + " and Status = 1;";
+
+                    using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                trip = new TripModel
+                                {
+                                    Id = (int)reader["Id"],
+                                    IdDriver = (int)reader["IdDriver"],
+                                    InitialDate = (DateTime)reader["InitialDate"],
+                                    FinalDate = (DateTime)reader["FinalDate"],
+                                    OriginAddress = reader["OriginAddress"].ToString(),
+                                    OriginCoordinates = reader["OriginCoordinates"].ToString(),
+                                    DestinationAddress = reader["DestinationAddress"].ToString(),
+                                    DestinationCoordinates = reader["DestinationCoordinates"].ToString(),
+                                    Status = (int)reader["Status"],
+                                    Route = reader["Route"].ToString()
+                                };
+                            }
+                        }
+                    }
+                }
+                return trip;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         public ApiResponse Insert()
         {
@@ -145,7 +195,7 @@ namespace UberChafaAPI.Models
                         + DestinationAddress + "', '"
                         + DestinationCoordinates + "', '"
                         + Status + "', '"
-                        + Route + "');";
+                        + Route + "'); SELECT LAST_INSERT_ID();";
                     using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
                     {
                         cmd.CommandType = System.Data.CommandType.Text;
@@ -210,6 +260,53 @@ namespace UberChafaAPI.Models
                     IsSuccess = true,
                     Result = id,
                     Message = "¡Se ha eliminado correctamente!"
+                };
+            }
+            catch (Exception e)
+            {
+                return new ApiResponse
+                {
+                    IsSuccess = false,
+                    Result = null,
+                    Message = e.Message
+                };
+            }
+        }
+        public ApiResponse Update()
+        {
+            try
+            {
+                var builder = new MySqlConnectionStringBuilder
+                {
+                    Server = "uberchafa.mysql.database.azure.com",
+                    Database = "uberchafadb",
+                    UserID = "uberadmin@uberchafa",
+                    Password = "Nintendo123",
+                    SslMode = MySqlSslMode.Required,
+                };
+                using (MySqlConnection sqlConnection = new MySqlConnection(builder.ConnectionString))
+                {
+                    sqlConnection.Open();
+
+                    string queryString = "";
+
+                    queryString = "UPDATE `uberchafadb`.`trip` SET `FinalDate` = "
+                            + "current_timestamp()" + ", `Status` = "
+                            + Status + ", `Route` = '"
+                            + Route + "' WHERE `Id` = "
+                            + Id + ";";
+
+                    using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
+                    {
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.ExecuteScalar();
+                    }
+                }
+                return new ApiResponse
+                {
+                    IsSuccess = true,
+                    Result = Id,
+                    Message = "¡La información ha sido actualizada correctamente!"
                 };
             }
             catch (Exception e)

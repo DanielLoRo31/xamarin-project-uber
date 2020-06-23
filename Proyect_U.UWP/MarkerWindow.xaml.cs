@@ -1,5 +1,4 @@
-﻿using AppTrips.Models;
-using Proyect_U.Models;
+﻿using Proyect_U.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,13 +21,13 @@ namespace AppTrips.UWP
 {
     public sealed partial class MarkerWindow : UserControl
     {
-        public MarkerWindow(UserModel trip)
+        public MarkerWindow(UserModel user)
         {
             this.InitializeComponent();
 
-            MarkerWindowImage.Source = new BitmapImage(new Uri(trip.ImageUrl));
-            MarkerWindowTitle.Text = trip.Title;
-            MarkerWindowNotes.Text = trip.Notes;
+            MarkerWindowImage.Source = new BitmapImage(new Uri(user.Picture));
+            MarkerWindowTitle.Text = user.Name;
+            MarkerWindowNotes.Text = user.LicensePlate;
         }
     }
 }

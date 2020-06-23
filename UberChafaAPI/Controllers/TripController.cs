@@ -3,42 +3,42 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using UberChafaAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UberChafaAPI.Models;
 
 namespace UberChafaAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class DriverController : ControllerBase
+    public class TripController : ControllerBase
     {
         [HttpGet]
-        public ObservableCollection<DriverModel> Get()
+        public ObservableCollection<TripModel> Get()
         {
-            return new DriverModel().GetAll();
+            return new TripModel().GetAll();
         }
 
-        [HttpGet("{id}", Name = "Get")]
-        public DriverModel Get(int id)
+        [HttpGet("{id}", Name = "Select")]
+        public TripModel Get(int id)
         {
-            return new DriverModel().Get(id);
+            return new TripModel().Get(id);
         }
 
-        [HttpPost("login")]
-        public DriverModel GetLogin([FromBody] DriverModel value)
+        [HttpGet("actual/{id}", Name = "Actual")]
+        public TripModel GetActual(int id)
         {
-            return value.GetLogin();
+            return new TripModel().GetActualTrip(id);
         }
 
         [HttpPost]
-        public ApiResponse Post([FromBody] DriverModel value)
+        public ApiResponse Post([FromBody] TripModel value)
         {
             return value.Insert();
         }
 
         [HttpPut]
-        public ApiResponse Put([FromBody] DriverModel value)
+        public ApiResponse Put([FromBody] TripModel value)
         {
             return value.Update();
         }
@@ -46,7 +46,7 @@ namespace UberChafaAPI.Controllers
         [HttpDelete("{id}")]
         public ApiResponse Delete(int id)
         {
-            return new DriverModel().Delete(id);
+            return new TripModel().Delete(id);
         }
     }
 }

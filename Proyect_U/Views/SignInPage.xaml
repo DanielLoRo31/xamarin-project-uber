@@ -31,10 +31,6 @@
                 <Entry 
                     Placeholder="Nombre" 
                     Text="{Binding Name}" />
-                
-                <Entry 
-                    Placeholder="Correo" 
-                    Text="{Binding Email}" />
 
                 <Entry 
                     Placeholder="Password" 

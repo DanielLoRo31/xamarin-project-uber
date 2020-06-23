@@ -37,11 +37,11 @@
     <EmbeddedResource Update="Views\DriverMenuPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\PetMapPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\SignInPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\TripMapPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

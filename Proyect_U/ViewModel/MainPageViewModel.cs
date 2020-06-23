@@ -1,9 +1,11 @@
 ﻿using Proyect_U.Models;
+using Proyect_U.Services;
 using Proyect_U.ViewModels;
 using Proyect_U.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Proyect_U.ViewModel
@@ -12,7 +14,7 @@ namespace Proyect_U.ViewModel
     {
         Command _LogInCommand;
 
-        public Command LogInCommand => _LogInCommand ?? (_LogInCommand = new Command(LogInAction));
+        public Command LogInCommand => _LogInCommand ?? (_LogInCommand = new Command(LogInActionAsync));
 
         Command _SignInCommand;
 
@@ -34,9 +36,25 @@ namespace Proyect_U.ViewModel
         }
 
 
-        private void LogInAction()
+        private async void LogInActionAsync()
         {
-            Application.Current.MainPage.Navigation.PushModalAsync(new DriverMainPage(new UserModel()));
+            ApiResponse response = await new ApiService().GetDataWithBodyAsync("driver/login", new UserModel
+            {
+                Name = this.Email,
+                Password = this.Password
+            });
+            if (response == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Uber Chafa", "Error al crear el usuario", "Ok");
+                return;
+            }
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
+                return;
+            }
+            await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
+            Application.Current.MainPage.Navigation.PushModalAsync(new DriverMainPage(response.Result as UserModel));
         }
 
         private void SignInAction()

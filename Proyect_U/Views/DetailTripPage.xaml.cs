@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Proyect_U.Models;
+using Proyect_U.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,12 @@ namespace Proyect_U.Views
         public DetailTripPage()
         {
             InitializeComponent();
+            BindingContext = new DetailTripViewModel();
+        }
+        public DetailTripPage(UserModel user)
+        {
+            InitializeComponent();
+            BindingContext = new DetailTripViewModel(user);
         }
     }
 }

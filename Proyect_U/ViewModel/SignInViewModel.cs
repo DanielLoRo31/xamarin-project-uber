@@ -5,12 +5,16 @@ using Proyect_U.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using static Proyect_U.Models.UserModel;
 
 namespace Proyect_U.ViewModel
 {
     public class SignInViewModel: BaseViewModel
     {
+        int id;
         bool opcion;
 
         Command _TakePictureCommand;
@@ -34,13 +38,6 @@ namespace Proyect_U.ViewModel
         {
             get => _Name;
             set => SetProperty(ref _Name, value);
-        }
-
-        string _Email;
-        public string Email
-        {
-            get => _Email;
-            set => SetProperty(ref _Email, value);
         }
 
         string _Password;
@@ -72,14 +69,38 @@ namespace Proyect_U.ViewModel
 
         public SignInViewModel(UserModel u, string s)
         {
+            id = u.Id;
             Title = s;
+            Name = u.Name;
+            Password = u.Password;
+            PlateCar = u.LicensePlate;
+            Image = u.Picture;
             opcion = false;
         }
 
-        private void RegisterAction()
+        private async void RegisterAction()
         {
             if (opcion == true)
             {
+                ApiResponse response = await new ApiService().PostDataAsync("driver", new UserModel
+                {
+                    Name = this.Name,
+                    LicensePlate =  this.PlateCar,
+                    Picture = this.Image,
+                    CurrentLocation = await GetLocationAction(),
+                    Password = this.Password
+                });
+                if (response == null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Uber Chafa", "Error al crear el usuario", "Ok");
+                    return;
+                }
+                if (!response.IsSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
+                    return;
+                }
+                await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
                 Application.Current.MainPage.Navigation.PopAsync();
             }
             
@@ -134,6 +155,43 @@ namespace Proyect_U.ViewModel
                 return;
 
             Image = new ImageService().ConvertImageSourceToBase64(file.Path);
+        }
+
+        private async Task<PositionModel> GetLocationAction()
+        {
+            try
+            {
+                var location = await Geolocation.GetLastKnownLocationAsync();
+
+                if (location != null)
+                {
+                    //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                    return new PositionModel
+                    {
+                        Latitude = location.Latitude.ToString(),
+                        Longitude = location.Longitude.ToString()
+                    };
+                    
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                return null;
+                // Handle not supported on device exception
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+            }
+            return null;
         }
 
     }
