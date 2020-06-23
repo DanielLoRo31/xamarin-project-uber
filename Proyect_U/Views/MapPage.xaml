@@ -6,7 +6,7 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:renders="clr-namespace:AppTrips.Renders"
              mc:Ignorable="d"
-             x:Class="ZGAF_DELR_EXAMEN_2P.Views.PetMapPage">
+             x:Class="ZGAF_DELR_EXAMEN_2P.Views.MapPage">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -20,7 +20,8 @@
             <BoxView
                 Grid.Row="1"
                 BackgroundColor="White"
-                Opacity=".7" />
+                Opacity=".7" 
+                />
             <StackLayout
                 Padding="10"
                 Grid.Row="1">
@@ -39,11 +40,12 @@
                 Text="Finalizar Viaje"
                 FontSize="Medium"
                 FontAttributes="Bold"
+                BackgroundColor="Red"
                 TextColor="WhiteSmoke"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
-                WidthRequest="150"
-                Command="{Binding GetLocationCommand}"/>
+                WidthRequest="200"
+                Clicked="Button_Clicked"/>
             
         </Grid>
     </ContentPage.Content>

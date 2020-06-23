@@ -1,6 +1,7 @@
 ﻿using Proyect_U.Models;
 using Proyect_U.Services;
 using Proyect_U.ViewModels;
+using Proyect_U.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -91,7 +92,7 @@ namespace Proyect_U.ViewModel
 
         private async void GetLocationAction()
         {
-            ApiResponse response = await new ApiService().PostDataAsync("trip", new TripModel
+            TripModel trip = new TripModel
             {
                 IdDriver = user.Id,
                 OriginAddress = this.InitialAddress,
@@ -100,7 +101,9 @@ namespace Proyect_U.ViewModel
                 DestinationCoordinates = await GetPosition(this.FinalAddress),
                 Status = 1,
                 Route = await GetActualPosition()
-            });
+            };
+
+            ApiResponse response = await new ApiService().PostDataAsync("trip", trip);
             if (response == null)
             {
                 await Application.Current.MainPage.DisplayAlert("Uber Chafa", "Error al crear el usuario", "Ok");
@@ -111,7 +114,11 @@ namespace Proyect_U.ViewModel
                 await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
                 return;
             }
+
             await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
+            DriverMainPage.GetInstance().UdpdateActualTrip(trip, false);
+            await DriverMainPage.GetInstance().NavigateFromMenu(2);
+
         }
     }
 }

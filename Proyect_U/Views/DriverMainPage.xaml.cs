@@ -8,7 +8,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZGAF_DELR_EXAMEN_2P.Views;
@@ -57,6 +57,26 @@ namespace Proyect_U.Views
             return this.trip;
         }
 
+        public async void UdpdateActualTrip(TripModel t, bool type)
+        {
+            ApiResponse response = await new ApiService().PutDataAsync($"trip", t);
+            if (response == null || !response.IsSuccess)
+            {
+                //await Application.Current.MainPage.DisplayAlert("No viaje", response.Message, "Ok");
+                return;
+            }
+            await Application.Current.MainPage.DisplayAlert("¡Éxito!", response.Message, "Ok");
+            if (type == false)
+            {
+                this.trip = t;
+            } else
+            {
+                this.trip = null;
+                this.NavigateFromMenu(0);
+            }
+            
+        }
+
 
         private async void TakeActualTrip()
         {
@@ -70,6 +90,56 @@ namespace Proyect_U.Views
             trip = (TripModel)response.Result;
             this.NavigateFromMenu(2);
         }
+
+        public async void UpdateUserLocation()
+        {
+            string position = await GetActualPosition();
+            user.CurrentLocation.Latitude = position.Split(' ')[0];
+            user.CurrentLocation.Longitude = position.Split(' ')[1];
+
+            ApiResponse response = await new ApiService().PutDataAsync("driver", user);
+            if (response == null || !response.IsSuccess)
+            {
+                //await Application.Current.MainPage.DisplayAlert("No viaje", response.Message, "Ok");
+                return;
+            }
+           
+            this.NavigateFromMenu(2);
+        }
+
+        private async Task<string> GetActualPosition()
+        {
+            try
+            {
+                var location = await Geolocation.GetLastKnownLocationAsync();
+
+                if (location != null)
+                {
+                    //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                    return location.Latitude.ToString() + " " + location.Longitude.ToString() + ",";
+
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                return null;
+                // Handle not supported on device exception
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+            }
+            return null;
+        }
+
 
 
         public async Task NavigateFromMenu(int id)
@@ -86,7 +156,7 @@ namespace Proyect_U.Views
                         MenuPages.Add(id, new NavigationPage(new SignInPage(user)));
                         break;
                     case (int)MenuItemType.Mapa:   /*Mostrar Tres puntos de Apptrips, Inicio,final,Conductor, boton de terminar viaje*/
-                        MenuPages.Add(id, new NavigationPage(new PetMapPage(user)));
+                        MenuPages.Add(id, new NavigationPage(new MapPage(user, trip)));
                         break;
                 }
                 

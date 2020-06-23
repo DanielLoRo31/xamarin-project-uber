@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyect_U.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Proyect_U.Views
         public DetailCarPage()
         {
             InitializeComponent();
+            BindingContext = new DetailCarViewModel();
         }
     }
 }

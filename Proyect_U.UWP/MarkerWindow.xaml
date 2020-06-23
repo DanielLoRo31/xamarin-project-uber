@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Image 
             x:Name="MarkerWindowImage" 
-            Width="100"/>
+            Width="20"/>
         <StackPanel
             Grid.Row="1"
             Orientation="Horizontal"

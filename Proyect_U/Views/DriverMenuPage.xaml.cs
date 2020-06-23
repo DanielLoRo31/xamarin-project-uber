@@ -44,7 +44,14 @@ namespace Proyect_U.Views
                         await RootPage.NavigateFromMenu(2);
                     } else
                     {
-                        await RootPage.NavigateFromMenu(id);
+                        if (id != 2)
+                        {
+                            await RootPage.NavigateFromMenu(id);
+                        } else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("¡Error!", "¡No hay un viaje en curso D: !", "Ok");
+                        }
+                        
                     }
                     
                 } else

@@ -7,7 +7,7 @@
              xmlns:converter="clr-namespace:Proyect_U.Converters"
              x:Class="Proyect_U.Views.DetailCarPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Nuevo" Command="{Binding NewCommand}" />
+        <ToolbarItem Text="Eliminar" Command="{Binding DeleteCommand}" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>
@@ -23,8 +23,8 @@
             Command="{Binding RefreshCommand}">
             <CollectionView
                 SelectionMode="Single"
-                ItemsSource="{Binding }"
-                SelectedItem="{Binding }"
+                ItemsSource="{Binding Users}"
+                SelectedItem="{Binding UserSelected}"
                 SelectionChangedCommand="{Binding SelectCommand}"
                 x:Name="DogsColView">
                 <d:CollectionView.ItemsSource>
@@ -57,7 +57,7 @@
                             Aspect="AspectFill"
                             VerticalOptions="CenterAndExpand"
                             HorizontalOptions="CenterAndExpand"
-                            Source="{Binding ImageBase64, Converter={StaticResource ImageConverter}}" />
+                            Source="{Binding Picture, Converter={StaticResource ImageConverter}}" />
                             <Label
                             Grid.Row="1"
                             Grid.Column="1"
@@ -71,17 +71,8 @@
                             TextColor="Black"
                             FontSize="Medium"
                             d:Text="Car Plates"
-                                 Text="{Binding CarPlates}"
+                                 Text="{Binding LicensePlate}"
                              />
-                            
-                            <Label
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            FontSize="Medium"
-                            TextColor="Black"
-                            Text="{Binding Position}"
-                            d:Text="Position"
-                            FontAttributes="Bold" />
                         </Grid>
 
                     </DataTemplate>
