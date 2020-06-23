@@ -34,6 +34,18 @@
                     x:Name="Age"
                     HorizontalOptions="Center" />
             </StackLayout>
+            <Button
+                Padding="30"
+                Grid.Row="1"
+                Text="Iniciar Viaje"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                TextColor="WhiteSmoke"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                WidthRequest="150"
+                Command="{Binding GetLocationCommand}"/>
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>
