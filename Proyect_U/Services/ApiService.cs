@@ -68,7 +68,8 @@ namespace Proyect_U.Services
                     return new ApiResponse
                     {
                         IsSuccess = false,
-                        Message = result
+                        Message = result,
+                        Result = null
                     };
                 }
 
@@ -238,7 +239,7 @@ namespace Proyect_U.Services
                     BaseAddress = new System.Uri(ApiUrl)
                 };
 
-                var response = await client.DeleteAsync(controller+"/"+id);       //  || var response = await client.DeleteAsync($"{controller}/{id}");
+                var response = await client.DeleteAsync(controller + "/" + id);       //  || var response = await client.DeleteAsync($"{controller}/{id}");
                 var result = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)

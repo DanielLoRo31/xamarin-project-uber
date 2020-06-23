@@ -2,6 +2,7 @@
 using Proyect_U.Models;
 using Proyect_U.Services;
 using Proyect_U.ViewModels;
+using Proyect_U.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -76,7 +77,10 @@ namespace Proyect_U.ViewModel
             PlateCar = u.LicensePlate;
             Image = u.Picture;
             opcion = false;
+
         }
+
+        
 
         private async void RegisterAction()
         {

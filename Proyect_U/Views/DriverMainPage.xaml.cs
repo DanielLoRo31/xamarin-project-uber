@@ -4,6 +4,7 @@ using Proyect_U.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Proyect_U.Views
     [DesignTimeVisible(false)]
     public partial class DriverMainPage : MasterDetailPage
     {
+        static DriverMainPage instance;
         Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
         UserModel user;
         TripModel trip;
@@ -31,32 +33,48 @@ namespace Proyect_U.Views
 
         public DriverMainPage(UserModel u)
         {
+            instance = this;
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
 
             //MenuPages.Add((int)MenuItemType.Inicio, (NavigationPage)Detail);
-
-
             user = u;
-            TakeActualTrip();
+
+            this.TakeActualTrip();
+
             this.NavigateFromMenu(0);
         }
+
+        public static DriverMainPage GetInstance()
+        {
+            if (instance == null) instance = new DriverMainPage();
+            return instance;
+        }
+
+        public TripModel GetActualTrip()
+        {
+            return this.trip;
+        }
+
 
         private async void TakeActualTrip()
         {
             ApiResponse response = await new ApiService().GetTripByIdAsync<TripModel>($"trip/actual/{user.Id}");
             if (response == null || !response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error al cargar los productos", response.Message, "Ok");
+                //await Application.Current.MainPage.DisplayAlert("No viaje", response.Message, "Ok");
                 return;
             }
+            await Application.Current.MainPage.DisplayAlert("¡Estás en viaje!", response.Message, "Ok");
             trip = (TripModel)response.Result;
+            this.NavigateFromMenu(2);
         }
 
 
         public async Task NavigateFromMenu(int id)
         {
+            
             if (!MenuPages.ContainsKey(id))
             {
                 switch (id)

@@ -39,7 +39,14 @@ namespace Proyect_U.Views
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
                 if (id != 3)
                 {
-                    await RootPage.NavigateFromMenu(id);
+                    if (RootPage.GetActualTrip() != null)
+                    {
+                        await RootPage.NavigateFromMenu(2);
+                    } else
+                    {
+                        await RootPage.NavigateFromMenu(id);
+                    }
+                    
                 } else
                 {
                     await Application.Current.MainPage.Navigation.PopModalAsync();

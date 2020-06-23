@@ -35,9 +35,8 @@
                     HorizontalOptions="Center" />
             </StackLayout>
             <Button
-                Padding="30"
-                Grid.Row="1"
-                Text="Iniciar Viaje"
+                Grid.Row="2"
+                Text="Finalizar Viaje"
                 FontSize="Medium"
                 FontAttributes="Bold"
                 TextColor="WhiteSmoke"

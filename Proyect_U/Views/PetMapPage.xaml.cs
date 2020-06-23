@@ -26,7 +26,7 @@ namespace ZGAF_DELR_EXAMEN_2P.Views
             ));
 
             string imagePath = new ImageService().SaveImageFromBase64(petSelected.Picture, petSelected.Id);
-            petSelected.Picture = imagePath;
+            petSelected.PicturePath = imagePath;
             MapPet.User = petSelected;
 
             MapPet.Pins.Add(

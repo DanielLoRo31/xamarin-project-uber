@@ -25,7 +25,7 @@ namespace AppTrips.UWP
         {
             this.InitializeComponent();
 
-            MarkerWindowImage.Source = new BitmapImage(new Uri(user.Picture));
+            MarkerWindowImage.Source = new BitmapImage(new Uri(user.PicturePath));
             MarkerWindowTitle.Text = user.Name;
             MarkerWindowNotes.Text = user.LicensePlate;
         }
