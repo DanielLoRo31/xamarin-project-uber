@@ -55,11 +55,16 @@ namespace Proyect_U.ViewModel
             }
             await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
 
+            this.Email = "";
+            this.Password = "";
+
             if (((UserModel)response.Result).Name == "admin")
                 await Application.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(new DetailCarPage()));
             else
                 await Application.Current.MainPage.Navigation.PushModalAsync(new DriverMainPage(response.Result as UserModel));
         }
+
+        
 
         private void SignInAction()
         {

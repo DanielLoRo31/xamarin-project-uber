@@ -19,7 +19,7 @@ namespace ZGAF_DELR_EXAMEN_2P.Views
         {
             
             InitializeComponent();
-            Application.Current.MainPage.DisplayAlert("¡AAAAAAAA!", "AAAAAAAAAAAAAAAAAAAA", "Ok");
+            //Application.Current.MainPage.DisplayAlert("¡AAAAAAAA!", "AAAAAAAAAAAAAAAAAAAA", "Ok");
             trip = tripSelected;
 
             MapPet.MoveToRegion(

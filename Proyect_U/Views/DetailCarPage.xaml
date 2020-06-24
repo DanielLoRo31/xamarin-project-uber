@@ -8,6 +8,7 @@
              x:Class="Proyect_U.Views.DetailCarPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Eliminar" Command="{Binding DeleteCommand}" />
+        <ToolbarItem Text="Salir" Command="{Binding LogOutCommand}" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>

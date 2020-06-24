@@ -31,6 +31,16 @@ namespace Proyect_U.ViewModel
         Command _DeleteCommand;
         public Command DeleteCommand => _DeleteCommand ?? (_DeleteCommand = new Command(DeleteUserAction));
 
+
+        Command _LogOutCommand;
+
+        public Command LogOutCommand => _LogOutCommand ?? (_LogOutCommand = new Command(LogOutAction));
+
+        private async void LogOutAction()
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+        }
+
         private async void DeleteUserAction()
         {
             if (UserSelected != null)
