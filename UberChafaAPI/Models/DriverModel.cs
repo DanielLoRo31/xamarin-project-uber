@@ -42,19 +42,22 @@ namespace UberChafaAPI.Models
                         {
                             while (reader.Read())
                             {
-                                drivers.Add(new DriverModel
+                                if(reader["Name"].ToString() != "admin")
                                 {
-                                    Id = (int)reader["Id"],
-                                    Name = reader["Name"].ToString(),
-                                    LicensePlate = reader["LicensePlate"].ToString(),
-                                    Picture = reader["Picture"].ToString(),
-                                    CurrentLocation = new PositionModel
+                                    drivers.Add(new DriverModel
                                     {
-                                        Latitude = reader["Latitude"].ToString(),
-                                        Longitude = reader["Longitude"].ToString()
-                                    },
-                                    Password = reader["Password"].ToString()
-                                });
+                                        Id = (int)reader["Id"],
+                                        Name = reader["Name"].ToString(),
+                                        LicensePlate = reader["LicensePlate"].ToString(),
+                                        Picture = reader["Picture"].ToString(),
+                                        CurrentLocation = new PositionModel
+                                        {
+                                            Latitude = reader["Latitude"].ToString(),
+                                            Longitude = reader["Longitude"].ToString()
+                                        },
+                                        Password = reader["Password"].ToString()
+                                    });
+                                }
                             }
                         }
                     }
@@ -292,6 +295,46 @@ namespace UberChafaAPI.Models
                 {
                     sqlConnection.Open();
                     string queryString = "DELETE FROM Driver WHERE Id = " + Id + ";";
+                    using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
+                    {
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return new ApiResponse
+                {
+                    IsSuccess = true,
+                    Result = id,
+                    Message = "¡Se ha eliminado correctamente!"
+                };
+            }
+            catch (Exception e)
+            {
+                return new ApiResponse
+                {
+                    IsSuccess = false,
+                    Result = null,
+                    Message = e.Message
+                };
+            }
+        }
+
+        public ApiResponse DeleteUserAndTrips(int id)
+        {
+            try
+            {
+                var builder = new MySqlConnectionStringBuilder
+                {
+                    Server = "uberchafa.mysql.database.azure.com",
+                    Database = "uberchafadb",
+                    UserID = "uberadmin@uberchafa",
+                    Password = "Nintendo123",
+                    SslMode = MySqlSslMode.Required,
+                };
+                using (MySqlConnection sqlConnection = new MySqlConnection(builder.ConnectionString))
+                {
+                    sqlConnection.Open();
+                    string queryString = "DELETE FROM trip WHERE IdDriver = " + id + "; DELETE FROM Driver WHERE Id = " + id + ";";
                     using (MySqlCommand cmd = new MySqlCommand(queryString, sqlConnection))
                     {
                         cmd.CommandType = System.Data.CommandType.Text;

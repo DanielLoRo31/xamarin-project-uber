@@ -46,7 +46,7 @@ namespace UberChafaAPI.Controllers
         [HttpDelete("{id}")]
         public ApiResponse Delete(int id)
         {
-            return new DriverModel().Delete(id);
+            return new DriverModel().DeleteUserAndTrips(id);
         }
     }
 }
