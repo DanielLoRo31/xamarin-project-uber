@@ -142,6 +142,7 @@
     <Content Include="origin.png" />
     <Content Include="password.png" />
     <Content Include="Properties\Default.rd.xml" />
+    <Content Include="sonic.gif" />
     <Content Include="vehicle.png" />
   </ItemGroup>
   <ItemGroup>

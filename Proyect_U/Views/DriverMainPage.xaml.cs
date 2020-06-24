@@ -116,7 +116,7 @@ namespace Proyect_U.Views
                 if (location != null)
                 {
                     //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                    return location.Latitude.ToString() + " " + location.Longitude.ToString() + ",";
+                    return location.Latitude.ToString() + " " + location.Longitude.ToString();
 
                 }
             }

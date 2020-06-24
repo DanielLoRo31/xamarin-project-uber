@@ -17,23 +17,18 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.Content>
+    <ContentPage.Content BackgroundColor="#34495E ">
         <RefreshView 
             IsRefreshing="{Binding isBusy}" 
-            Command="{Binding RefreshCommand}">
+            Command="{Binding RefreshCommand}"
+            BackgroundColor="#34495E ">
             <CollectionView
                 SelectionMode="Single"
                 ItemsSource="{Binding Users}"
                 SelectedItem="{Binding UserSelected}"
                 SelectionChangedCommand="{Binding SelectCommand}"
-                x:Name="DogsColView">
-                <d:CollectionView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Driver 1</x:String>
-                        <x:String>Driver 2</x:String>
-                        <x:String>Driver 3</x:String>
-                    </x:Array>
-                </d:CollectionView.ItemsSource>
+                x:Name="DogsColView"
+                BackgroundColor="#34495E ">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

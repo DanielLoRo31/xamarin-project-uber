@@ -42,9 +42,9 @@ namespace Proyect_U.ViewModel
                     return;
                 }
                 await Application.Current.MainPage.DisplayAlert("UberChafa", UserSelected.Name + " ha sido eliminado", "Ok");
-                UserSelected = null;
-                Users = new ObservableCollection<UserModel>();
+
                 GetAllUsers();
+                
             }
             
         }

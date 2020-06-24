@@ -107,7 +107,29 @@ namespace Proyect_U.ViewModel
                 await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
                 Application.Current.MainPage.Navigation.PopAsync();
             }
-            
+            else
+            {
+                ApiResponse response = await new ApiService().PutDataAsync("driver", new UserModel
+                {
+                    Id = this.id,
+                    Name = this.Name,
+                    LicensePlate = this.PlateCar,
+                    Picture = this.Image,
+                    CurrentLocation = await GetLocationAction(),
+                    Password = this.Password
+                });
+                if (response == null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Uber Chafa", "Error al crear el usuario", "Ok");
+                    return;
+                }
+                if (!response.IsSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
+                    return;
+                }
+                await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
+            }
         }
 
         private async void SelectPictureAction()

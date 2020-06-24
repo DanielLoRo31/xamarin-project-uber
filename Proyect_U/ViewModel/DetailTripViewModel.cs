@@ -117,7 +117,7 @@ namespace Proyect_U.ViewModel
 
             await Application.Current.MainPage.DisplayAlert("Uber Chafa", response.Message, "Ok");
             DriverMainPage.GetInstance().UdpdateActualTrip(trip, false);
-            await DriverMainPage.GetInstance().NavigateFromMenu(2);
+            //await DriverMainPage.GetInstance().NavigateFromMenu(2);
 
         }
     }
